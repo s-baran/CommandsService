@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPlatformDataClient, PlatformDataClient>();
 
 builder.Services.AddSwaggerGen();
-
+AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -31,10 +31,10 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 app.UseRouting();
- 
 
 app.MapControllers();
  
+PrepDb.PrepPopulation(app);
 
 app.Run();
  
